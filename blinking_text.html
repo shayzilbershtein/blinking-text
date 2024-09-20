@@ -14,17 +14,20 @@
             font-weight: bold;
             cursor: pointer;
             text-align: center; /* ממורכז */
+            text-shadow: 
+                -2px -2px 0 #fff,  
+                2px -2px 0 #fff,
+                -2px 2px 0 #fff,
+                2px 2px 0 #fff;
         }
-
         @keyframes blinking {
             0% { opacity: 1; }
             50% { opacity: 0; }
             100% { opacity: 1; }
         }
-
         .arrow {
             font-size: 28px; /* גובה השברון */
-            margin-left: 5px; /* רווח בין הטקסט לשברון */
+            margin-right: 5px; /* רווח בין הטקסט לשברון */
             vertical-align: middle; /* ממרכז את השברון יחסית לטקסט */
         }
     </style>
@@ -33,13 +36,11 @@
     <div id="blinkingText" class="blinking-text">
         להתחלת סינון לחצו כאן <span class="arrow">&gt;</span> <!-- שברון ימינה -->
     </div>
-
     <script>
         // הפסקת ההבהוב בלחיצה על טקסט ההבהוב עצמו
         document.getElementById('blinkingText').addEventListener('click', function() {
             this.classList.remove('blinking-text');
         });
-
         // הפסקת ההבהוב כאשר לוחצים על כפתור מתוך ווידג'ט צדדי
         document.addEventListener('click', function(event) {
             if (event.target.closest('.jimu-widget')) {
