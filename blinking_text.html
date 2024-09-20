@@ -38,7 +38,8 @@
     if (container) {
       container.style.display = 'none';
     }
-    localStorage.setItem('blinkingTextHidden', 'true');
+    // Set sessionStorage to remember that the blinking text has been hidden
+    sessionStorage.setItem('blinkingTextHidden', 'true');
   }
 
   function checkButtonClick(event) {
@@ -52,12 +53,14 @@
     }
   }
 
+  // Add event listener to check clicks on the button placeholder
   document.addEventListener('click', checkButtonClick);
 
-  if (localStorage.getItem('blinkingTextHidden') === 'true') {
+  // Check if the blinking text has been hidden in the current session
+  if (sessionStorage.getItem('blinkingTextHidden') === 'true') {
     stopBlinkingAndHide();
   }
 
-  // עבור תאימות עם הקוד הקיים
+  // Compatibility with existing code to stop blinking from a button
   window.stopBlinkingFromButton = stopBlinkingAndHide;
 </script>
