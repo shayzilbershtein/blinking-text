@@ -1,52 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blinking Text Animation</title>
-    <style>
-        .blinking-text {
-            animation: blinking 2.5s infinite;
-            font-size: 28px;
-            color: #004022; /* ירוק כהה */
-            font-family: Arial, sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-            text-align: center; /* ממורכז */
-            text-shadow: 
-                -2px -2px 0 #fff,  
-                2px -2px 0 #fff,
-                -2px 2px 0 #fff,
-                2px 2px 0 #fff;
-        }
-        @keyframes blinking {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        .arrow {
-            font-size: 28px; /* גובה השברון */
-            margin-right: 5px; /* רווח בין הטקסט לשברון */
-            vertical-align: middle; /* ממרכז את השברון יחסית לטקסט */
-        }
-    </style>
-</head>
-<body>
-    <div id="blinkingText" class="blinking-text">
-        להתחלת סינון לחצו כאן <span class="arrow">&gt;</span> <!-- שברון ימינה -->
-    </div>
-    <script>
-        // הפסקת ההבהוב בלחיצה על טקסט ההבהוב עצמו
-        document.getElementById('blinkingText').addEventListener('click', function() {
-            this.classList.remove('blinking-text');
-        });
-        // הפסקת ההבהוב כאשר לוחצים על כפתור מתוך ווידג'ט צדדי
-        document.addEventListener('click', function(event) {
-            if (event.target.closest('.jimu-widget')) {
-                document.getElementById('blinkingText').classList.remove('blinking-text');
-            }
-        });
-    </script>
-</body>
-</html>
+<div id="blinkingTextContainer" style="display: inline-block; margin-right: 10px;">
+  <div id="blinkingText" class="blinking-text">
+    להתחלת סינון לחצו כאן <span class="arrow">&gt;</span>
+  </div>
+</div>
+
+<style>
+  .blinking-text {
+    animation: blinking 2.5s infinite;
+    font-size: 28px;
+    color: #004022;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-shadow: 
+      -2px -2px 0 #fff,  
+      2px -2px 0 #fff,
+      -2px 2px 0 #fff,
+      2px 2px 0 #fff;
+  }
+  @keyframes blinking {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  .arrow {
+    font-size: 28px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+</style>
+
+<script>
+  // Function to stop blinking and hide the text
+  function stopBlinkingAndHide() {
+    var blinkingText = document.getElementById('blinkingText');
+    var container = document.getElementById('blinkingTextContainer');
+    blinkingText.style.animation = 'none';
+    container.style.display = 'none';
+  }
+
+  // Event listener for the blinking text itself
+  document.getElementById('blinkingText').addEventListener('click', stopBlinkingAndHide);
+
+  // Function to be called from the external button
+  window.stopBlinkingFromButton = stopBlinkingAndHide;
+
+  // Optional: If you want to stop blinking when any widget button is clicked
+  document.addEventListener('click', function(event) {
+    if (event.target.closest('.jimu-btn')) {
+      stopBlinkingAndHide();
+    }
+  });
+</script>
